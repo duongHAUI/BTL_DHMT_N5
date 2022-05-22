@@ -1,0 +1,11 @@
+﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  example1.cpp
+D:\NguyenVanDuong\Ki2Nam3\ĐHMT\BTL\BTL_DHMT_N5\GLSLExperiment\mat.h(581,5): warning C4566: character represented by universal-character-name '\u0110' cannot be represented in the current code page (1252)
+D:\NguyenVanDuong\Ki2Nam3\ĐHMT\BTL\BTL_DHMT_N5\GLSLExperiment\mat.h(770,5): warning C4566: character represented by universal-character-name '\u0110' cannot be represented in the current code page (1252)
+D:\NguyenVanDuong\Ki2Nam3\ĐHMT\BTL\BTL_DHMT_N5\GLSLExperiment\mat.h(777,5): warning C4566: character represented by universal-character-name '\u0110' cannot be represented in the current code page (1252)
+D:\NguyenVanDuong\Ki2Nam3\ĐHMT\BTL\BTL_DHMT_N5\GLSLExperiment\mat.h(784,5): warning C4566: character represented by universal-character-name '\u0110' cannot be represented in the current code page (1252)
+D:\NguyenVanDuong\Ki2Nam3\ĐHMT\BTL\BTL_DHMT_N5\GLSLExperiment\example1.cpp(34,40): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+D:\NguyenVanDuong\Ki2Nam3\ĐHMT\BTL\BTL_DHMT_N5\GLSLExperiment\example1.cpp(39,43): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+D:\NguyenVanDuong\Ki2Nam3\ĐHMT\BTL\BTL_DHMT_N5\GLSLExperiment\example1.cpp(40,44): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+D:\NguyenVanDuong\Ki2Nam3\ĐHMT\BTL\BTL_DHMT_N5\GLSLExperiment\example1.cpp(172,43): warning C4305: 'argument': truncation from 'double' to 'const GLfloat'
+  GLSLExperiment.vcxproj -> D:\NguyenVanDuong\Ki2Nam3\ĐHMT\BTL\BTL_DHMT_N5\Debug\GLSLExperiment.exe
