@@ -153,14 +153,44 @@ mat4 instance;
 vec4 colorCode;
 GLfloat quayBasexyz[3] = { 0,0,0 };
 mat4 quayBase;
+GLfloat xeye =0, yeye = 0, zeye = 1, yat = 0;
+
 void Block(mat4 mt ,vec4 colorCode)
 {
 	material_diffuse = colorCode;  // Mã màu
 	diffuse_product = light_diffuse * material_diffuse;
 	glUniform4fv(glGetUniformLocation(program, "DiffuseProduct"), 1, diffuse_product);
+	point4 eye(xeye, yeye, zeye, 1);
+	point4 at(xeye , yeye - yat, zeye -1 , 1);
+	vec4 up(0, 1, 0, 1);
+	mat4 view = LookAt(eye, at, up);
+	glUniformMatrix4fv(view_loc, 1, GL_TRUE, view);
+	mat4 projection = Frustum(-10, 10, -10, 10,4, 10 );
+	glUniformMatrix4fv(projection_loc, 1, GL_TRUE, projection);
 	glUniformMatrix4fv(model_loc, 1, GL_TRUE, mt);
 	glDrawArrays(GL_TRIANGLES, 0, NumPoints);
 }
+
+
+GLfloat wKN = 7, dKN = 12, hKN = 3.5 ; // chiều d r c của mô hình nhà
+GLfloat doDatT = 0.02 ; // độ dày của tường tuongwf trái 3.9
+GLfloat hMN = 0.5;  // độ dày của nền nhà
+
+
+void KhungNha() {
+	// mặt nền 
+	instance = Translate(wKN * 0.5,  -hMN * 0.5, -dKN*0.5) * Scale(wKN, hMN, dKN);
+	colorCode = vec4(28.0 / 255, 28.0 / 255, 28.0 / 255, 1.0);  //mã màu nền nhà
+	Block(instance, colorCode);
+	// đường viền tường trước bên trái
+	instance = Translate(3.9 * 0.5, 1 * 0.5, -doDatT * 0.5) * Scale(3.9, 1, doDatT);
+	colorCode = vec4(112.0 / 255, 128.0 / 255, 144.0 / 255, 1.0);  //mã màu nền nhà
+	Block(instance, colorCode);
+	// đường viền tường trước bên trái
+}
+
+
+
 
 void display( void )
 {
@@ -169,45 +199,34 @@ void display( void )
 	const vec3 viewer_pos(0.0, 0.0, 0.0);  /*Trùng với eye của camera*/
 	quayBase = RotateX(quayBasexyz[0]) * RotateY(quayBasexyz[1]) * RotateZ(quayBasexyz[2]);
 
-	instance = quayBase * Scale(0.5, 2.2, 0.5);
-	colorCode = vec4(0,0,1,1.0);   // điền mã màu cho Khối
-	Block(instance, colorCode);
+	KhungNha();
 
 	glutSwapBuffers();									   
 }
 
-void reshape(int width, int height)
-{
-
-	point4 eye(5, 0, 0, 1);
-	point4 at(0, 0, 0, 1);
-	vec4 up(0, 1, 0, 1);
-	mat4 view = LookAt(eye, at, up);
-
-	glUniformMatrix4fv(view_loc, 1, GL_TRUE, view);
-	mat4 projection = Frustum(-1, 1, -1, 1, 1, 4);
-	glUniformMatrix4fv(projection_loc, 1, GL_TRUE, projection);
-	/*Vẽ các tam giác*/
-
-	glViewport(0, 0, width, height);
-}
 void keyboard( unsigned char key, int x, int y )
 {
 	// keyboard handler
 
 	switch (key) {
-		case 'x': {
-			quayBasexyz[0] += 5;
+		case 'w':
+			xeye -= 0.2;
 			break;
-		}
-		case 'y': {
-			quayBasexyz[1] += 5;
+		case 's':
+			xeye += 0.2;
 			break;
-		}
-		case 'z': {
-			quayBasexyz[2] += 5;
+		case 'a':
+			zeye -= 0.2;
 			break;
-		}
+		case 'd':
+			zeye += 0.2;
+			break;
+		case 'q':
+			yeye += 0.2;
+			break;
+		case 'e':
+			yeye -= 0.2;
+			break;
 	}
 	glutPostRedisplay();
 }
@@ -232,7 +251,6 @@ int main( int argc, char **argv )
 
     glutDisplayFunc( display );                   
     glutKeyboardFunc( keyboard );       
-	glutReshapeFunc(reshape);
 
 	glutMainLoop();
     return 0;
